@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000
 app.use(express.static(path.join(__dirname,"/images")));
 console.log(path.join(__dirname,"/images"));
 app.use(cors({
-  origin:"https://admitcardfrontend.netlify.app"
+  origin:"https://test-app-565d5.web.app"
 }));
 app.use(bodyParser.json())
 app.use( bodyParser.urlencoded({extended: true }));
