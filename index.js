@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname,"/images")));
 console.log(path.join(__dirname,"/images"));
 app.use(cors({
   origin:"https://test-app-565d5.web.app"
+  // origin:"http://localhost:3000"
 }));
 app.use(bodyParser.json())
 app.use( bodyParser.urlencoded({extended: true }));

@@ -8,7 +8,10 @@ const admusersSchema = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:true
+        required:true 
+    },
+    userImg:{
+      type:String,
     },
     phone:{
         type:Number,
