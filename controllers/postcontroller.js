@@ -90,6 +90,7 @@ const updateprofilepic=async(req,res)=>{
    let updatedImg = await admusers.updateOne({_id:loginuser.id } , {$set:{userImg:img}});
    return res.status(200).send({data:updatedImg});
   }catch(err){
+    return res.send(err);
     console.log(err);
   }
 }
