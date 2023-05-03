@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt")
+const cloudinary = require('cloudinary').v2;
 const admusers = require("../Schema/admusers");
 const jwt = require("jsonwebtoken");
 const profilePic = require("../Schema/profilepicSchema")
@@ -68,4 +69,28 @@ const logout=async(req,res)=>{
     console.log(err);
   }
 }
-module.exports = {register , login , logout}
+const updateprofilepic=async(req,res)=>{
+  const uploadFiles = req.files.profile_pic;
+  console.log(uploadFiles)
+  let img
+  const token = req.headers.token;
+  if(!token){
+    return res.status(201).send({message:"sue rnot login"});
+  } 
+  let verifyuser = await jwt.verify(token , process.env.SECREAT_KEY);
+  console.log(verifyuser);
+  let loginuser = await admusers.findOne({_id:verifyuser.id});
+ console.log(loginuser);
+  try{
+    await cloudinary.uploader.upload(uploadFiles.tempFilePath,(err,result)=>{
+      img=result.url
+      console.log(result);
+   })
+   console.log("img link = " , img);
+   let updatedImg = await admusers.updateOne({_id:loginuser.id } , {$set:{userImg:img}});
+   return res.status(200).send({data:updatedImg});
+  }catch(err){
+    console.log(err);
+  }
+}
+module.exports = {register , login , logout , updateprofilepic}

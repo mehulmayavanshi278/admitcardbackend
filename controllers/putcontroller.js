@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const addbasicinfo=async(req,res)=>{
   try{
     const token = req.headers.token;
+    console.log(token);
     let verifyuser = await jwt.verify(token , process.env.SECREAT_KEY);
     console.log(verifyuser);
     let loginuser = await admusers.findOne({_id:verifyuser.id})
